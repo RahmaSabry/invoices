@@ -1,0 +1,23 @@
+
+<div class="invoice-box">
+    <table cellpadding="0" cellspacing="0">
+        <tr class="top">
+            <td colspan="2">
+
+            </td>
+        </tr>
+        <tr ng-repeat="invoice in invoices">
+            <td><a data-id="" ui-sref="invoice({ id:invoice.id})" ng-click="showInvoice(invoice.id)" class="invoice-item">{{invoice.cName}} , {{invoice.date}}</a></td>
+
+            <td>  <a ui-sref='edit({id:invoice.id})' class="btn btn-default"><em class="fa fa-pencil"></em></a>
+
+                <a class="btn btn-danger" ng-click="removeInvoice(invoice.id)"><em class="fa fa-trash"></em></a>
+            </td>
+        </tr>
+
+
+    </table>
+    <button type="button" class="btn btn-sm btn-primary btn-create" ui-sref="create">Create invoice</button>
+
+    <div ui-view></div>
+  </div>

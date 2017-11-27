@@ -1,0 +1,48 @@
+<form name="createform">
+
+<div class="col-md-12">
+  <div class="form-group">
+    <input type="text" ng-model="cName" id="" class="form-control input-sm" placeholder="Client Name" required>
+  </div>
+</div>
+<div class="col-md-12">
+  <div class="form-group">
+    <input type="text" ng-model="address" id="address" class="form-control input-sm" placeholder="Address" required>
+  </div>
+</div>
+  <div class="col-md-12">
+  <div class="form-group">
+    <input type="text" ng-model="date" id="date" class="form-control input-sm" placeholder="Date" required>
+  </div>
+</div>
+
+
+
+<div class="col-md-12">
+  <div class="form-group">
+    <input type="text" ng-model="phone" id="phone" class="form-control input-sm" placeholder="Mobile Number" required>
+  </div>
+</div>
+<div class="col-md-12">
+  <div class="form-group row ">
+    <div  class="col-md-4">
+    <input type="Items" name="item" id="item" class="form-control input-sm" placeholder="Insert Items" ng-model="newItem" ng-required="!items.length>0" >
+    </div>
+    <div class="col-md-4"><input type="Items" name="price" id="price" class="form-control input-sm" placeholder="Price" ng-model="price" ></div>
+    <div  class="col-md-4">
+    <button ng-click="addItem()" class="btn btn-info">Add</button>
+    </div>
+
+  </div>
+
+<div><ul style="list-style-type: none;" >
+      <li ng-repeat="item in items" ng-model="items" class="{'fadeOut' : item.done}">
+        <span class="fa fa-close" ng-click="deleteItem($index)"></span>
+        <span>Item:{{item.itemName}}  {{"     Price: "+item.price}}$</span>
+      </li>
+    </ul></div>
+</div>
+
+<button  ng-disabled="createform.$invalid" ng-show="createButton" ng-click="saveInvoice()"  class="btn btn-info btn-block">Create Invoice</button>
+  <button  ng-disabled="createform.$invalid" ng-show="editButton"  ng-click="editInvoice()"  class="btn btn-info btn-block">Edit Invoice</button>
+</form>

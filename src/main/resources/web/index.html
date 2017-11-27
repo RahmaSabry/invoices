@@ -1,0 +1,37 @@
+
+<!doctype html>
+<html>
+<head>
+<!-- <base href="/"> -->
+    <meta charset="utf-8">
+    <title>Invoices</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
+    <script src="http://code.angularjs.org/1.2.13/angular.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+<script type="text/javascript" src="ui-bootstrap-tpls-2.5.0.min.js"></script>
+<script type="text/javascript" src="app.js"></script>
+
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
+
+<body ng-app="app">
+    <div class="invoice-box">
+      <table>
+          <tr>
+              <td class="title">
+                  <img src="http://www.transporter-group.com/assets/site/en/images/header_logo_1.png" style="width:100%; max-width:300px;">
+              </td>
+
+              <td >
+                  <h1>Invoices</h1>
+              </td>
+          </tr>
+      </table>
+      <div ui-view></div>
+
+</div>
+</body>
+</html>

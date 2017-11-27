@@ -1,0 +1,10 @@
+run
+sbt run
+run
+compo
+compile
+run
+products
+run
+compile
+run
