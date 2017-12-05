@@ -7,7 +7,7 @@
             </td>
         </tr>
         <tr ng-repeat="invoice in invoices">
-            <td><a data-id="" ui-sref="invoice({ id:invoice.id})" ng-click="showInvoice(invoice.id)" class="invoice-item">{{invoice.cName}} , {{invoice.date}}</a></td>
+            <td><a data-id="" ui-sref="invoice({ id:invoice.id})" ng-click="showInvoice(invoice.id)" class="invoice-item">{{invoice.clientName}} , {{invoice.date}}</a></td>
 
             <td>  <a ui-sref='edit({id:invoice.id})' class="btn btn-default"><em class="fa fa-pencil"></em></a>
 

@@ -1,3 +1,3 @@
 package InvoicesBackend.entities
 
-case class Items (itemName:String,price:String)
+case class Items (itemName:String,price:Int)

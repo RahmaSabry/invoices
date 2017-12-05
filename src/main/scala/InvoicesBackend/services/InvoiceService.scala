@@ -8,7 +8,7 @@ class InvoiceService(implicit val executionContext: ExecutionContext) {
 
   var invoices = Vector.empty[Invoice]
 
-  def createInvoice(invoice: Invoice): Future[Option[String]] = Future {
+  def createInvoice(invoice: Invoice): Future[Option[Int]] = Future {
     invoices.find(_.id == invoice.id) match {
       case Some(q) => None // Conflict! id is already taken
       case None =>
@@ -17,11 +17,11 @@ class InvoiceService(implicit val executionContext: ExecutionContext) {
     }
   }
 
-  def getInvoice(id: String): Future[Option[Invoice]] = Future {
+  def getInvoice(id: Int): Future[Option[Invoice]] = Future {
     invoices.find(_.id == id)
   }
 
-  def updateInvoice(id: String, update: InvoiceUpdate): Future[Option[Invoice]] = {
+  def updateInvoice(id: Int, update: InvoiceUpdate): Future[Option[Invoice]] = {
 
     def updateEntity(invoice: Invoice): Invoice = {
       val clientName = update.clientName.getOrElse(invoice.clientName)
@@ -44,7 +44,7 @@ class InvoiceService(implicit val executionContext: ExecutionContext) {
     }
   }
 
-  def deleteInvoice(id: String): Future[Unit] = Future {
+  def deleteInvoice(id: Int): Future[Unit] = Future {
     invoices = invoices.filterNot(_.id == id)
   }
 

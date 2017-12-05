@@ -18,6 +18,7 @@ libraryDependencies ++= {
     "ch.qos.logback" % "logback-classic" % "1.2.3",
     "org.json4s" %% "json4s-native" % Json4sVersion,
     "org.json4s" %% "json4s-ext" % Json4sVersion,
-    "de.heikoseeberger" %% "akka-http-json4s" % "1.16.0"
+    "de.heikoseeberger" %% "akka-http-json4s" % "1.16.0",
+    "ch.megard" %% "akka-http-cors" % "0.2.1"
   )
 }

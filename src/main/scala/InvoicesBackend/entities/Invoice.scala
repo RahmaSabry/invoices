@@ -1,3 +1,3 @@
 package InvoicesBackend.entities
 
-case class Invoice(id: String, clientName: String, address: String,date:String,phoneNumber:String,items:Array[Items])
+case class Invoice(id: Int, clientName: String, address: String,date:String,phoneNumber:String,items:Array[Items])

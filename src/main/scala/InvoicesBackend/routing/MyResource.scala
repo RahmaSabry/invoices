@@ -1,11 +1,10 @@
 package InvoicesBackend.routing
 
-import akka.http.scaladsl.marshalling.{ToResponseMarshaller, ToResponseMarshallable}
+import akka.http.scaladsl.marshalling.{ToResponseMarshallable, ToResponseMarshaller}
 
 import scala.concurrent.{ExecutionContext, Future}
 import akka.http.scaladsl.model.headers.Location
 import akka.http.scaladsl.server.{Directives, Route}
-
 import InvoicesBackend.serializers.JsonSupport
 
 trait MyResource extends Directives with JsonSupport {
@@ -13,11 +12,10 @@ trait MyResource extends Directives with JsonSupport {
   implicit def executionContext: ExecutionContext
 
   def completeWithLocationHeader[T](resourceId: Future[Option[T]], ifDefinedStatus: Int, ifEmptyStatus: Int): Route =
-    onSuccess(resourceId) {
+    onSuccess(resourceId)   {
       case Some(t) => completeWithLocationHeader(ifDefinedStatus, t)
       case None => complete(ifEmptyStatus, None)
     }
-
   def completeWithLocationHeader[T](status: Int, resourceId: T): Route =
     extractRequestContext { requestContext =>
       val request = requestContext.request
