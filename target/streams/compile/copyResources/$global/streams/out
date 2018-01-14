@@ -1,9 +1,0 @@
-[0m[[0m[0mdebug[0m] [0m[0mCopy resource mappings: [0m
-[0m[[0m[0mdebug[0m] [0m[0m	(/home/rahma/invoices/src/main/resources/index.html,/home/rahma/invoices/target/scala-2.12/classes/index.html)[0m
-[0m[[0m[0mdebug[0m] [0m[0m	(/home/rahma/invoices/src/main/resources/application.conf,/home/rahma/invoices/target/scala-2.12/classes/application.conf)[0m
-[0m[[0m[0mdebug[0m] [0m[0m	(/home/rahma/invoices/src/main/resources/App.js,/home/rahma/invoices/target/scala-2.12/classes/App.js)[0m
-[0m[[0m[0mdebug[0m] [0m[0m	(/home/rahma/invoices/src/main/resources/invoices.json,/home/rahma/invoices/target/scala-2.12/classes/invoices.json)[0m
-[0m[[0m[0mdebug[0m] [0m[0m	(/home/rahma/invoices/src/main/resources/logback.xml,/home/rahma/invoices/target/scala-2.12/classes/logback.xml)[0m
-[0m[[0m[0mdebug[0m] [0m[0m	(/home/rahma/invoices/src/main/resources/web,/home/rahma/invoices/target/scala-2.12/classes/web)[0m
-[0m[[0m[0mdebug[0m] [0m[0m	(/home/rahma/invoices/src/main/resources/web/connect.js,/home/rahma/invoices/target/scala-2.12/classes/web/connect.js)[0m
-[0m[[0m[0mdebug[0m] [0m[0m	(/home/rahma/invoices/src/main/resources/web/index.html,/home/rahma/invoices/target/scala-2.12/classes/web/index.html)[0m
