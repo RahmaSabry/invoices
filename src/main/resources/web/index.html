@@ -7,17 +7,24 @@
     <title>Invoices</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-    <script src="http://code.angularjs.org/1.2.13/angular.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
+    <script src="http://code.angularjs.org/1.5.0/angular.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.16/angular-resource.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-cookies.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css">
 
 
 </head>
 
-<body ng-app="app">
+<body ng-app="app" ng-controller="mainController">
     <div class="invoice-box">
       <table>
+          <tr><td></td>
+              <td><Button ng-show="!login" class="btn btn-primary" ui-sref="login">Login</Button></td>
+              <td><Button ng-show="!login" class="btn btn-primary" ui-sref="register">Register</Button></td>
+              <td><Button ng-show="login" class="btn btn-primary" ng-click="logout()">Logout</Button><span ng-show="login"><b>{{userName}}</b></span></td>
+
+          </tr>
           <tr>
               <td class="title">
                   <img src="http://www.transporter-group.com/assets/site/en/images/header_logo_1.png" style="width:100%; max-width:300px;">
