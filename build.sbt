@@ -21,7 +21,7 @@ libraryDependencies ++= {
     "de.heikoseeberger" %% "akka-http-json4s" % "1.16.0",
     "ch.megard" %% "akka-http-cors" % "0.2.1",
     "com.h2database" % "h2" % "1.4.192",
-    "io.getquill" %% "quill-jdbc" % "2.3.2"
-
+    "io.getquill" %% "quill-jdbc" % "2.3.2",
+    "com.typesafe.slick" %% "slick" % "3.2.1"
   )
 }

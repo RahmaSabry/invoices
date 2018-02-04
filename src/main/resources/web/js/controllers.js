@@ -2,10 +2,11 @@
 Controller for view the invoices list
 get the $resource from InvoiceService
 **/
-angular.module('invoiceControllers',['ui.router','resourceApp'])
+angular.module('invoiceControllers',['ui.router','resourceApp','ngMaterial','ngAnimate'])
 .controller('invoicesList',['$scope','InvoiceService','$state',function($scope,InvoiceService,$state ){
     $scope.invoices=[];
     var invoices= InvoiceService.query()
+    console.log(invoices)
     $scope.invoices=invoices;
     $scope.removeInvoice=function(id){
     InvoiceService.remove({id:id},function(){
@@ -17,24 +18,24 @@ angular.module('invoiceControllers',['ui.router','resourceApp'])
 view the invoice details
 get specific invoice by id got from $stateParams
 */
-.controller('invoiceDetails',['$scope','$stateParams','InvoiceService','$http',function($scope,$stateParams,InvoiceService,$http){
-  $scope.invoice={}
+.controller('invoiceDetails',['$scope','invoiceDetails',function($scope,invoiceDetails){
+  $scope.invoiceWithItems={}
   $scope.total=0
-  InvoiceService.get({id:$stateParams.id}).$promise.then(function(data){
-
-  $scope.invoice=data;
-       var items= $scope.invoice.items;
-
+  $scope.items=[]
+  invoiceDetails.$promise.then(function(data){
+  $scope.invoiceWithItems=data;
+  $scope.invoice=$scope.invoiceWithItems.invoice
+  $scope.items=$scope.invoiceWithItems.items
     $scope.total=getTotal();
   })
-     function getTotal(){
-       var items= $scope.invoice.items;
-             var sum = 0;
-             for(var i = 0; i <items.length; i++){
-                 var item = items[i].price;
-                 sum += item;
-             }
-             return sum; }
+    function getTotal(){
+    var items= $scope.invoiceWithItems.items;
+    var sum = 0;
+    for(var i = 0; i <items.length; i++){
+    var item = items[i].price;
+    sum += item;
+    }
+    return sum; }
 }])
 .directive('invoiceDetails',function(){
 return{
@@ -45,81 +46,114 @@ templateUrl:'html/invoiceDetails.html'
 /**
 create new invoice
 **/
-.controller('createInvoice',['$scope','InvoiceService','$state',function($scope,InvoiceService,$state){
-$scope.editButton=false;
-$scope.createButton=true;
-
-  $scope.items=[]
-  $scope.addItem=function () {
-    if ($scope.newItem!='') {
-    $scope.items.push({'itemName':$scope.newItem,'price':parseInt($scope.price) ,'done':false})
-    $scope.newItem=''
-    $scope.price=''
-  }
-  }
+.controller('newInvoiceController',['$scope','InvoiceService','$state','ItemService',function($scope,InvoiceService,$state,ItemService){
+    $scope.editButton=false;
+    $scope.createButton=true;
+    $scope.selectedItems=[]
+    var itemsID=[]
+//    $scope.toggleSideMenu = function($event){
+//    $event.preventDefault();
+//    $scope.closed=!$scope.closed;
+//};
+   $scope.openMenu=function(){
+   if($scope.menuList) $scope.menuList=false
+   else if (!$scope.menuList)$scope.menuList=true;
+    }
+    $scope.addSelectedItem=function(itemID,index){
+    $scope.selectedItems.push({'itemName':$scope.items[index].itemName,'price':parseInt($scope.items[index].price)})
+    itemsID.push(itemID)
+        console.log($scope.selectedItems)
+    }
+$scope.items = ItemService.query();
   $scope.deleteItem = function(index) {
-  $scope.items.splice(index, 1);
+  $scope.selectedItems.splice(index, 1);
+  itemsID.splice(index,1)
 }
   $scope.saveInvoice=function()
   {
-
   var id =$scope.id;
   var clientName= $scope.clientName;
   var address=$scope.address;
   var date = $scope.date;
   var phone=$scope.phone;
   var items=$scope.items;
-   var data={
-      "id": parseInt(id),
+if(itemsID.length>0)
+{
+    var newInvoice ={
+    "invoice":{
+      "invoiceID": -1,
       "clientName":clientName,
       "address": address ,
       "date": date,
       "phoneNumber": phone,
-      "items" :items
-
+      },
+      "itemsID":itemsID
     }
-    InvoiceService.save(data)
+    InvoiceService.save(newInvoice)
+    console.log(newInvoice)
   $state.go('invoices')
-
+}
+else{
+    $scope.emptyItems=true;
+    $scope.message="Please select item!"
+}
 }
 }])
 /**
 
 Edit invoice
 */
-.controller('editInvoice',['$scope','$stateParams','InvoiceService','$state',function($scope,$stateParams,InvoiceService,$state){
-  $scope.editButton=true;
-  $scope.createButton=false;
-  $scope.invoice={}
-  $scope.items=[];
-InvoiceService.get({id:$stateParams.id}).$promise.then(function(invoice){
-    $scope.invoice=invoice;
-    $scope.id=invoice.id;
+.controller('editingInvoiceController',['$scope','$stateParams','InvoiceService','$state','ItemService','invoiceDetails',function($scope,$stateParams,InvoiceService,$state,ItemService,invoiceDetails){
+    $scope.editButton=true;
+    $scope.createButton=false;
+    $scope.invoice={}
+    $scope.items=[];
+    var itemsID=[]
+    invoiceDetails.$promise.then(function(data){
+    var invoice=data.invoice;
+    $scope.id=invoice.invoiceID;
     $scope.clientName= invoice.clientName;
     $scope.address= invoice.address;
     $scope.date= invoice.date;
     $scope.phone= invoice.phoneNumber;
-    $scope.items= invoice.items;
+    $scope.selectedItems= data.items;
+    angular.forEach($scope.selectedItems,function(value,key){
+    itemsID.push(value.itemID)})
 })
- $scope.addItem=function () {
-    if ($scope.newItem!='') {
-    $scope.items.push({'itemName':$scope.newItem,'price':parseInt($scope.price) ,'done':false})
-    $scope.newItem=''
-    $scope.price=''
-  }
-  }
-  $scope.deleteItem = function(index) {
-  $scope.items.splice(index, 1);
-}
+ $scope.items = ItemService.query();
+ $scope.openMenu=function(){
+    if($scope.menuList) $scope.menuList=false
+    else if (!$scope.menuList)$scope.menuList=true;
+     }
+     $scope.addSelectedItem=function(itemID,index){
+     $scope.selectedItems.push({'itemName':$scope.items[index].itemName,'price':parseInt($scope.items[index].price)})
+     itemsID.push(itemID)
+     console.log($scope.selectedItems)
+     }
+   $scope.deleteItem = function(index) {
+   $scope.selectedItems.splice(index, 1);
+   itemsID.splice(index,1)
+ }
+   console.log($scope.id)
+
    $scope.editInvoice=function(){
+   if(itemsID.length>0){
    var invoice=$scope.invoice;
-   invoice.clientName=$scope.clientName;
-   invoice.address=$scope.address;
-   invoice.date=$scope.date;
-   invoice.phone=$scope.phone;
-   invoice.items=$scope.items;
-   InvoiceService.update({id:$stateParams.id},invoice)
-    $state.go('invoices',{id: 0}, {reload : true});
+   var updateInvoice ={
+       "invoice":{
+         "invoiceID": parseInt($stateParams.id),
+         "clientName":$scope.clientName,
+         "address": $scope.address ,
+         "date": $scope.date,
+         "phoneNumber": $scope.phone,
+         },
+         "itemsID":itemsID
+       }
+   InvoiceService.update({id:$stateParams.id},updateInvoice)
+    $state.go('invoices',{id: 0}, {reload : true});}
+    else{
+    $scope.emptyItems=true;
+    $scope.message="Please select item!"}
    }
 }])
 .controller('mainController',function($scope,$cookies,$rootScope,LoginService,$state){

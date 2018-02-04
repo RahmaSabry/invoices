@@ -19,19 +19,27 @@ controller:'logInController',
 
 })
 .state('invoice',{
-  url: '/invoices/:id',
- templateUrl: 'html/show.html',
-controller: 'invoiceDetails'
+url: '/invoices/:id',
+templateUrl: 'html/show.html',
+controller: 'invoiceDetails',
+resolve:{
+invoiceDetails:function(InvoiceService,$stateParams){
+return InvoiceService.get({id:$stateParams.id})}
+}
 })
 .state('create',{
   url:'/create',
-  templateUrl:'html/create.html',
-  controller:'createInvoice'
+  templateUrl:'html/newInvoice.html',
+  controller:'newInvoiceController'
 })
 .state('edit',{
   url:'/edit/:id',
-  templateUrl:'html/create.html',
-  controller:'editInvoice'
+  templateUrl:'html/newInvoice.html',
+  resolve:{
+  invoiceDetails:function(InvoiceService,$stateParams){
+  return InvoiceService.get({id:$stateParams.id})}
+  },
+  controller:'editingInvoiceController',
 })
 // $locationProvider.html5Mode(true);
 })

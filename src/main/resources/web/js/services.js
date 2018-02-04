@@ -2,6 +2,9 @@ angular.module('resourceApp', ['ngResource','ngCookies'])
 .factory('InvoiceService',function ($resource) {
     return $resource('http://localhost:5000/invoices/:id',null, {'update': { method:'PUT' }})
 })
+.factory('ItemService',function($resource){
+    return $resource('http://localhost:5000/items/')
+})
 .factory('RegisterService',function ($resource,$q) {
      return $resource('http://localhost:5000/register/')
 })

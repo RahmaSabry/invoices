@@ -3,3 +3,39 @@ CREATE TABLE IF NOT EXISTS Users(
     email VARCHAR(255),
     password VARCHAR(255)
 );
+CREATE TABLE IF NOT EXISTS Invoice(
+    invoiceID INT IDENTITY(1,1) PRIMARY KEY ,
+    clientName VARCHAR(255),
+    address VARCHAR(255),
+    date VARCHAR(255),
+    phoneNumber VARCHAR(255),
+);
+CREATE TABLE IF NOT EXISTS Item(
+    itemID INT PRIMARY KEY ,
+    itemName VARCHAR(255),
+    price VARCHAR(255),
+);
+CREATE TABLE IF NOT EXISTS itemInvoice(
+    invoiceID INT ,
+    itemID INT ,
+--    CONSTRAINT invoice_item_pkey PRIMARY KEY (invoiceID, invoiceID)
+   );
+
+INSERT INTO ITEM VALUES(1,'Laptop','15000');
+INSERT INTO ITEM VALUES(2,'Mobile Phone','5000');
+INSERT INTO ITEM VALUES(3,'Mouse','1000');
+INSERT INTO ITEM VALUES(4,'Printer','4000');
+INSERT INTO INVOICE VALUES(1,'ROKA','cairo','11-11-2017','01515');
+INSERT INTO ITEMINVOICE VALUES(1,2);
+INSERT INTO ITEMINVOICE VALUES(1,4);
+---------------------------------------------
+INSERT INTO INVOICE VALUES(2,'Rahma','cairo','11-11-2017','01515');
+INSERT INTO ITEMINVOICE VALUES(2,2);
+INSERT INTO ITEMINVOICE VALUES(2,3);
+
+
+
+
+
+
+

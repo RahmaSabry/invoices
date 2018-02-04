@@ -1,0 +1,46 @@
+<form name="createForm">
+  <div ng-show="emptyItems"class="alert alert-danger">
+    {{message}}
+  </div>
+<div class="col-md-12">
+  <div class="form-group">
+    <input type="text" ng-model="clientName"  class="form-control input-sm" placeholder="Client Name" required>
+  </div>
+</div>
+<div class="col-md-12">
+  <div class="form-group">
+    <input type="text" ng-model="address" id="address" class="form-control input-sm" placeholder="Address" required>
+  </div>
+</div>
+  <div class="col-md-12">
+  <div class="form-group">
+    <input type="text" ng-model="date" id="date" class="form-control input-sm" placeholder="Date" required>
+  </div>
+</div>
+  <div class="col-md-12">
+  <div class="form-group">
+    <input type="text" ng-model="phone" id="phone" class="form-control input-sm" placeholder="Mobile Number" required>
+  </div>
+</div>
+  <div class="sidebar-menu">
+    <div class="menu-header" >Items Menu
+      <a  ng-click="openMenu()"><i class="fa fa-bars" aria-hidden="true"></i></a>
+    </div>
+    <div ng-show="menuList" class="menu-content">
+      Select an item!
+      <ul ng-repeat="item in items">
+        <a ng-click="addSelectedItem(item.itemID,$index)"><li>{{item.itemName}}<span> : </span>{{item.price}} $</li></a>
+      </ul>
+    </div>
+  </div>
+<div><ul style="list-style-type: none;" >
+      <li ng-repeat="selectedItem in selectedItems">
+        <span class="fa fa-close" ng-click="deleteItem($index)"></span>
+        <span>Item:{{selectedItem.itemName}}  {{"     Price: "+selectedItem.price}}$</span>
+      </li>
+    </ul></div>
+</div>
+
+<button  ng-disabled="createForm.$invalid" ng-show="createButton" ng-click="saveInvoice()"  class="btn btn-info btn-block">Create Invoice</button>
+  <button  ng-disabled="createForm.$invalid" ng-show="editButton"  ng-click="editInvoice()"  class="btn btn-info btn-block">Edit Invoice</button>
+</form>

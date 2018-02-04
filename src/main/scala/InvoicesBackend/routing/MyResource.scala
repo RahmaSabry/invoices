@@ -7,6 +7,7 @@ import akka.http.scaladsl.model.headers.Location
 import akka.http.scaladsl.server.{Directives, Route}
 import InvoicesBackend.serializers.JsonSupport
 
+
 trait MyResource extends Directives with JsonSupport {
 
   implicit def executionContext: ExecutionContext
@@ -32,5 +33,6 @@ trait MyResource extends Directives with JsonSupport {
     }
 
   def complete(resource: Future[Unit]): Route = onSuccess(resource) { complete(204, None) }
+
 
 }
